@@ -1,0 +1,22 @@
+<div class="popover-back" (click)="dismiss()">
+</div>
+
+<div class="popover">
+    <div class="old">
+        <div>
+            {{oldTask.label}}
+        </div>
+        <div>
+            <fa-icon class="icon" [icon]="oldTask.isDone? doneIcon : todoIcon"></fa-icon>
+        </div>
+    </div>
+
+    <div class="new">
+        <button (click)="toggleIsDone()">
+          <fa-icon class="current" [icon]="task.isDone? doneIcon: todoIcon"></fa-icon>
+          <fa-icon class="hidden" [icon]="task.isDone? todoIcon: doneIcon"></fa-icon>
+        </button>
+        <input type="text" placeholder="Nouveau Label" [(ngModel)]="task.label">
+    </div>
+    <button (click)="confirm()">Confirmer</button>
+</div>

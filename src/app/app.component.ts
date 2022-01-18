@@ -17,20 +17,24 @@ export class AppComponent {
   tasks: ToutouTask[] = [];
 
   emptyTask: ToutouTask = {
-    label: 'Ajouter une Tache',
+    label: 'Ajoutez une Tache',
     isDone: this.tasks.length > 0,
     selected: false,
   };
 
   selectedTasks: ToutouTask[] = [];
 
+  modifiedTask?: ToutouTask = undefined;
+
   inputData!: string;
   add = () => {
+    if (!this.inputData.trim()) return;
     this.tasks.push({
-      label: this.inputData,
+      label: this.inputData.trim(),
       isDone: false,
       selected: false,
     });
+    this.inputData = '';
   };
   select = (task: ToutouTask) => {
     if (task === this.emptyTask) return;
@@ -50,7 +54,12 @@ export class AppComponent {
   };
 
   modify = () => {
-    console.log(this.selectedTasks[0]);
+    this.modifiedTask = this.selectedTasks[0];
+  };
+
+  update = (task: ToutouTask, newTask: ToutouTask) => {
+    console.log(this.tasks);
+    this.tasks[this.tasks.indexOf(task)] = newTask;
   };
 
   cancel = () => {
@@ -58,5 +67,6 @@ export class AppComponent {
       task.selected = false;
     });
     this.selectedTasks = [];
+    this.modifiedTask = undefined;
   };
 }

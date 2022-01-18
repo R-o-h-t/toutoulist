@@ -1,0 +1,71 @@
+.popover-back
+    position: fixed
+    background-color: #07070789
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+    padding: 24px
+.popover
+    position: fixed
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+    width: fit-content
+
+    height: fit-content
+    background: #fff
+    margin: auto
+    padding: 8px 6px
+    justify-content: center
+    align-items: center
+    border-radius: 24px
+    box-shadow: 1px 1px 1px 1px #aaa
+
+    .old
+        display: flex
+        flex-direction: row
+        justify-content: center
+        justify-content: space-evenly
+        margin: 8px 6px
+    .new
+        background-color: #8b8b8b89
+        border-radius: 8px
+        display: flex
+        flex-direction: row
+        margin: 8px 6px
+        input
+            width: 100%
+            background: none
+            border: none
+            margin-inline: 2em
+            &:focus
+                background: none
+                border: none
+                outline: none
+        button
+            font-size: 1.3em
+            .current
+                display: block
+            .hidden
+                display: none
+                color: #616161
+            &:hover
+                background: none
+                .current
+                    display: none
+                .hidden
+                    display: block
+
+button
+    background: none
+    border: none
+    text-align: center
+    text-decoration: none
+    justify-self: flex-en
+    border-radius: 8px
+    margin: 3px
+    font-size: 1.3em
+    &:hover
+        background-color: #AAAAAA44

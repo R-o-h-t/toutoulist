@@ -9,8 +9,8 @@
         <ng-template #text>
             ToutouList
         </ng-template>
-
     </div>
+    <app-modify-task *ngIf="modifiedTask!==undefined" [oldTask]=(modifiedTask) [update]=(update) [dismiss]=(cancel)></app-modify-task>
 
 
     <div class="taskslist" *ngIf="tasks.length>0">
@@ -19,7 +19,7 @@
     <div class="defaultTask" *ngIf="tasks.length==0">
         <app-task [task]=(emptyTask) [appSelect]=(select)></app-task>
     </div>
-    <div class="addbar">
+    <div class="addbar" (keyup.enter)="add()">
         <button (click)="add()">
           <fa-icon class="plusIcon" [icon]="plusIcon"></fa-icon>
           <fa-icon class="circleIcon" [icon]="circleIcon"></fa-icon>

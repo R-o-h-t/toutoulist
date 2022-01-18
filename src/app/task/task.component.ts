@@ -10,7 +10,6 @@ import { ToutouTask } from 'src/types';
 export class TaskComponent implements OnInit {
   todoIcon = faCircle;
   doneIcon = faCheckCircle;
-  icon = this.todoIcon;
 
   @Input()
   task!: ToutouTask;
