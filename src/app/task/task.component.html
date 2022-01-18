@@ -1,0 +1,7 @@
+<div class="task" [class.done]="task.isDone" [class.selected]="task.selected">
+    <button (click)="setDone()">
+        <fa-icon class="todoIcon" [class.hidden]="task.isDone" [icon]="todoIcon"></fa-icon>
+        <fa-icon class="doneIcon" [class.hidden]="!task.isDone" [icon]="doneIcon"></fa-icon>
+    </button>
+    <div class="label" (click)="select()">{{task.label}}</div>
+</div>

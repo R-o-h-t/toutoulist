@@ -1,0 +1,36 @@
+.task
+    background-color: #75757599
+    border-radius: 6px
+    display: flex
+    flex-direction: row
+    margin: 8px
+    justify-content: space-between
+
+    .label
+        padding: 8px
+        width: 100%
+
+    button
+        margin: 2px
+        border-radius: 6px
+        border: none
+        padding: 3px 6px
+        text-align: center
+        text-decoration: none
+        justify-self: flex-end
+        font-size: 1.3em
+        background: none
+        .hidden
+            display: none
+        &:hover
+            .todoIcon
+                display: none
+            .doneIcon
+                display: block !important
+
+.done
+    background-color: #63636356 !important
+
+.selected
+    border: 2px solid black
+    background-color: #636363 !important
