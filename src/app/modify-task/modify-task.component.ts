@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faCircle, faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { ToutouTask } from 'src/types';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-modify-task',
@@ -16,14 +17,7 @@ export class ModifyTaskComponent implements OnInit {
   @Input()
   dismiss!: () => void;
 
-  @Input()
-  update!: (task: ToutouTask, newTask: ToutouTask) => void;
-
-  task: ToutouTask = {
-    selected: false,
-    isDone: false,
-    label: '',
-  };
+  task: ToutouTask;
 
   toggleIsDone() {
     this.task.isDone = !this.task.isDone;
@@ -32,11 +26,19 @@ export class ModifyTaskComponent implements OnInit {
   confirm = () => {
     if (this.task.label.trim().length === 0)
       this.task.label = this.oldTask.label;
-    this.update(this.oldTask, this.task);
+    this.task.id = this.oldTask.id;
+    this.taskService.updateTask(this.oldTask.id, this.task);
     this.dismiss();
   };
 
-  constructor() {}
+  constructor(private taskService: TaskService) {
+    this.task = {
+      id: 0,
+      selected: false,
+      isDone: false,
+      label: '',
+    };
+  }
 
   ngOnInit(): void {}
 }

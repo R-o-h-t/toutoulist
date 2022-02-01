@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { ToutouTask } from 'src/types';
+import { TaskService } from './task.service';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +16,10 @@ export class AppComponent {
   plusIcon = faPlus;
   circleIcon = faCircle;
 
-  tasks: ToutouTask[] = [];
+  _tasks: ToutouTask[] = [];
 
   emptyTask: ToutouTask = {
+    id: 0,
     label: 'Ajoutez une Tache',
     isDone: this.tasks.length > 0,
     selected: false,
@@ -27,15 +30,43 @@ export class AppComponent {
   modifiedTask?: ToutouTask = undefined;
 
   inputData!: string;
+
+  private taskSubscription?: Subscription;
+
+  get tasks() {
+    return this._tasks;
+  }
+
+  set tasks(tasks: ToutouTask[]) {
+    this.taskService.setTasks(tasks);
+  }
+
+  constructor(private taskService: TaskService) {}
+
+  ngOnInit() {
+    this.taskSubscription = this.taskService
+      .getTasks()
+      .subscribe((tasks: ToutouTask[]) => {
+        this._tasks = tasks;
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.taskSubscription) {
+      this.taskSubscription.unsubscribe();
+    }
+  }
   add = () => {
     if (!this.inputData.trim()) return;
-    this.tasks.push({
+    this.taskService.addTask({
+      id: Math.ceil(Math.random() * 10000000),
       label: this.inputData.trim(),
       isDone: false,
       selected: false,
     });
     this.inputData = '';
   };
+
   select = (task: ToutouTask) => {
     if (task === this.emptyTask) return;
     if (task.selected) {
@@ -48,18 +79,13 @@ export class AppComponent {
 
   remove = () => {
     this.selectedTasks.forEach((task) => {
-      this.tasks.splice(this.tasks.indexOf(task), 1);
+      this.taskService.deleteTask(task.id);
     });
     this.selectedTasks = [];
   };
 
   modify = () => {
     this.modifiedTask = this.selectedTasks[0];
-  };
-
-  update = (task: ToutouTask, newTask: ToutouTask) => {
-    console.log(this.tasks);
-    this.tasks[this.tasks.indexOf(task)] = newTask;
   };
 
   cancel = () => {
